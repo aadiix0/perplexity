@@ -67,74 +67,94 @@ public class SettingsPanel extends JPanel {
         // API Keys Section
         JPanel keysPanel = createSectionPanel("API Credentials & Custom Endpoints");
         keysPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        JPanel leftColumnPanel = new JPanel(new GridBagLayout());
+        JPanel rightColumnPanel = new JPanel(new GridBagLayout());
 
         enableNvidiaCheckBox = new JCheckBox("Enable NVIDIA AI");
-        nvidiaKeyField = new JTextField(30);
+        nvidiaKeyField = new JTextField(25);
 
         enableOpenCodeZenCheckBox = new JCheckBox("Enable OpenCode Zen");
-        openCodeZenKeyField = new JTextField(30);
+        openCodeZenKeyField = new JTextField(25);
         openCodeZenFreeOnlyCheckBox = new JCheckBox("Show Only Free Models for OpenCode Zen");
 
         enableAiHubMixCheckBox = new JCheckBox("Enable AIHubMix");
-        aiHubMixKeyField = new JTextField(30);
+        aiHubMixKeyField = new JTextField(25);
 
         enableOpenRouterCheckBox = new JCheckBox("Enable OpenRouter");
-        openRouterKeyField = new JTextField(30);
+        openRouterKeyField = new JTextField(25);
 
         enableGoogleCheckBox = new JCheckBox("Enable Google AI Studio (Gemini)");
-        googleKeyField = new JTextField(30);
+        googleKeyField = new JTextField(25);
         googleFreeOnlyCheckBox = new JCheckBox("Show Only Free Tier Models for Google AI Studio");
 
         enableCerebrasCheckBox = new JCheckBox("Enable Cerebras");
-        cerebrasKeyField = new JTextField(30);
+        cerebrasKeyField = new JTextField(25);
 
         enableGroqCheckBox = new JCheckBox("Enable Groq");
-        groqKeyField = new JTextField(30);
+        groqKeyField = new JTextField(25);
         groqFreeOnlyCheckBox = new JCheckBox("Show Only Free Models for Groq");
 
         enableCloudflareCheckBox = new JCheckBox("Enable Cloudflare Workers AI");
-        cloudflareKeyField = new JTextField(30);
-        cloudflareAccountIdField = new JTextField(30);
+        cloudflareKeyField = new JTextField(25);
+        cloudflareAccountIdField = new JTextField(25);
 
         enableCustomCheckBox = new JCheckBox("Enable Custom OpenAI-Compatible Endpoint");
-        customUrlField = new JTextField(30);
-        customKeyField = new JTextField(30);
+        customUrlField = new JTextField(25);
+        customKeyField = new JTextField(25);
 
-        int row = 0;
-        row = addProviderHeader(keysPanel, gbc, row, enableNvidiaCheckBox);
-        row = addGridRow(keysPanel, gbc, row, "NVIDIA API Key:", nvidiaKeyField);
+        // Populate Left Column
+        GridBagConstraints gbcLeft = createGbc();
+        int leftRow = 0;
+        leftRow = addProviderHeader(leftColumnPanel, gbcLeft, leftRow, enableNvidiaCheckBox);
+        leftRow = addGridRow(leftColumnPanel, gbcLeft, leftRow, "NVIDIA API Key:", nvidiaKeyField);
 
-        row = addProviderHeader(keysPanel, gbc, row, enableOpenCodeZenCheckBox);
-        row = addGridRow(keysPanel, gbc, row, "OpenCode Zen API Key:", openCodeZenKeyField);
-        row = addCheckboxRow(keysPanel, gbc, row, openCodeZenFreeOnlyCheckBox);
+        leftRow = addProviderHeader(leftColumnPanel, gbcLeft, leftRow, enableOpenCodeZenCheckBox);
+        leftRow = addGridRow(leftColumnPanel, gbcLeft, leftRow, "OpenCode Zen API Key:", openCodeZenKeyField);
+        leftRow = addCheckboxRow(leftColumnPanel, gbcLeft, leftRow, openCodeZenFreeOnlyCheckBox);
 
-        row = addProviderHeader(keysPanel, gbc, row, enableAiHubMixCheckBox);
-        row = addGridRow(keysPanel, gbc, row, "AIHubMix API Key:", aiHubMixKeyField);
+        leftRow = addProviderHeader(leftColumnPanel, gbcLeft, leftRow, enableAiHubMixCheckBox);
+        leftRow = addGridRow(leftColumnPanel, gbcLeft, leftRow, "AIHubMix API Key:", aiHubMixKeyField);
 
-        row = addProviderHeader(keysPanel, gbc, row, enableOpenRouterCheckBox);
-        row = addGridRow(keysPanel, gbc, row, "OpenRouter API Key:", openRouterKeyField);
+        leftRow = addProviderHeader(leftColumnPanel, gbcLeft, leftRow, enableOpenRouterCheckBox);
+        leftRow = addGridRow(leftColumnPanel, gbcLeft, leftRow, "OpenRouter API Key:", openRouterKeyField);
 
-        row = addProviderHeader(keysPanel, gbc, row, enableGoogleCheckBox);
-        row = addGridRow(keysPanel, gbc, row, "Google AI API Key:", googleKeyField);
-        row = addCheckboxRow(keysPanel, gbc, row, googleFreeOnlyCheckBox);
+        leftRow = addProviderHeader(leftColumnPanel, gbcLeft, leftRow, enableGoogleCheckBox);
+        leftRow = addGridRow(leftColumnPanel, gbcLeft, leftRow, "Google AI API Key:", googleKeyField);
+        leftRow = addCheckboxRow(leftColumnPanel, gbcLeft, leftRow, googleFreeOnlyCheckBox);
 
-        row = addProviderHeader(keysPanel, gbc, row, enableCerebrasCheckBox);
-        row = addGridRow(keysPanel, gbc, row, "Cerebras API Key:", cerebrasKeyField);
+        // Populate Right Column
+        GridBagConstraints gbcRight = createGbc();
+        int rightRow = 0;
+        rightRow = addProviderHeader(rightColumnPanel, gbcRight, rightRow, enableCerebrasCheckBox);
+        rightRow = addGridRow(rightColumnPanel, gbcRight, rightRow, "Cerebras API Key:", cerebrasKeyField);
 
-        row = addProviderHeader(keysPanel, gbc, row, enableGroqCheckBox);
-        row = addGridRow(keysPanel, gbc, row, "Groq API Key:", groqKeyField);
-        row = addCheckboxRow(keysPanel, gbc, row, groqFreeOnlyCheckBox);
+        rightRow = addProviderHeader(rightColumnPanel, gbcRight, rightRow, enableGroqCheckBox);
+        rightRow = addGridRow(rightColumnPanel, gbcRight, rightRow, "Groq API Key:", groqKeyField);
+        rightRow = addCheckboxRow(rightColumnPanel, gbcRight, rightRow, groqFreeOnlyCheckBox);
 
-        row = addProviderHeader(keysPanel, gbc, row, enableCloudflareCheckBox);
-        row = addGridRow(keysPanel, gbc, row, "Cloudflare API Token:", cloudflareKeyField);
-        row = addGridRow(keysPanel, gbc, row, "Cloudflare Account ID:", cloudflareAccountIdField);
+        rightRow = addProviderHeader(rightColumnPanel, gbcRight, rightRow, enableCloudflareCheckBox);
+        rightRow = addGridRow(rightColumnPanel, gbcRight, rightRow, "Cloudflare API Token:", cloudflareKeyField);
+        rightRow = addGridRow(rightColumnPanel, gbcRight, rightRow, "Cloudflare Account ID:", cloudflareAccountIdField);
 
-        row = addProviderHeader(keysPanel, gbc, row, enableCustomCheckBox);
-        row = addGridRow(keysPanel, gbc, row, "Custom API Base URL:", customUrlField);
-        row = addGridRow(keysPanel, gbc, row, "Custom API Key:", customKeyField);
+        rightRow = addProviderHeader(rightColumnPanel, gbcRight, rightRow, enableCustomCheckBox);
+        rightRow = addGridRow(rightColumnPanel, gbcRight, rightRow, "Custom API Base URL:", customUrlField);
+        rightRow = addGridRow(rightColumnPanel, gbcRight, rightRow, "Custom API Key:", customKeyField);
+
+        GridBagConstraints gbcContainer = new GridBagConstraints();
+        gbcContainer.insets = new Insets(5, 10, 5, 10);
+        gbcContainer.fill = GridBagConstraints.BOTH;
+        gbcContainer.anchor = GridBagConstraints.NORTH;
+        gbcContainer.weightx = 0.5;
+        gbcContainer.weighty = 1.0;
+
+        gbcContainer.gridx = 0;
+        gbcContainer.gridy = 0;
+        keysPanel.add(leftColumnPanel, gbcContainer);
+
+        gbcContainer.gridx = 1;
+        gbcContainer.gridy = 0;
+        keysPanel.add(rightColumnPanel, gbcContainer);
 
         formPanel.add(keysPanel);
         formPanel.add(Box.createVerticalStrut(10));
@@ -170,12 +190,20 @@ public class SettingsPanel extends JPanel {
         return panel;
     }
 
+    private GridBagConstraints createGbc() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        return gbc;
+    }
+
     private int addProviderHeader(JPanel panel, GridBagConstraints gbc, int row, JCheckBox enableBox) {
         enableBox.setFont(enableBox.getFont().deriveFont(Font.BOLD));
         gbc.gridx = 0;
         gbc.gridy = row;
         gbc.gridwidth = 2;
         gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.WEST;
         panel.add(enableBox, gbc);
         gbc.gridwidth = 1;
         return row + 1;
@@ -191,11 +219,11 @@ public class SettingsPanel extends JPanel {
 
         gbc.gridx = 1;
         gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.WEST;
 
         if (field instanceof JTextField) {
-            field.setPreferredSize(new Dimension(350, 26));
-            field.setMaximumSize(new Dimension(350, 26));
+            field.setPreferredSize(new Dimension(280, 26));
         }
 
         panel.add(field, gbc);
@@ -206,6 +234,7 @@ public class SettingsPanel extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = row;
         gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(checkbox, gbc);
         return row + 1;
     }

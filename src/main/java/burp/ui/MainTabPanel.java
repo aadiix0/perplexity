@@ -100,23 +100,28 @@ public class MainTabPanel extends JPanel {
         JPanel topBtnBar = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 0));
         topBtnBar.setBackground(DARK_BG);
 
+        Insets tightMargin = new Insets(3, 4, 3, 4);
+
         JButton newSessionBtn = new JButton("+ New");
         newSessionBtn.setBackground(ORANGE_ACCENT);
         newSessionBtn.setForeground(Color.WHITE);
         newSessionBtn.setFont(newSessionBtn.getFont().deriveFont(Font.BOLD));
         newSessionBtn.setFocusPainted(false);
+        newSessionBtn.setMargin(tightMargin);
         newSessionBtn.addActionListener(e -> createNewSession());
 
         JButton renameSessionBtn = new JButton("✏️ Rename");
         renameSessionBtn.setBackground(DARK_PANEL);
         renameSessionBtn.setForeground(DARK_TEXT);
         renameSessionBtn.setFocusPainted(false);
+        renameSessionBtn.setMargin(tightMargin);
         renameSessionBtn.addActionListener(e -> renameSelectedSession());
 
         JButton deleteSessionBtn = new JButton("🗑 Delete");
         deleteSessionBtn.setBackground(DARK_PANEL);
         deleteSessionBtn.setForeground(DARK_TEXT);
         deleteSessionBtn.setFocusPainted(false);
+        deleteSessionBtn.setMargin(tightMargin);
         deleteSessionBtn.addActionListener(e -> deleteSelectedSession());
 
         topBtnBar.add(newSessionBtn);
