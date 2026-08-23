@@ -57,9 +57,10 @@ public class MainTabPanel extends JPanel {
 
     private static final Color DARK_BG = new Color(24, 24, 28);
     private static final Color DARK_PANEL = new Color(31, 31, 35);
+    private static final Color DARK_INPUT = new Color(33, 33, 39);
     private static final Color ORANGE_ACCENT = new Color(249, 115, 22);
     private static final Color DARK_TEXT = new Color(212, 212, 216);
-    private static final Color DARK_BORDER = new Color(39, 39, 42);
+    private static final Color DARK_BORDER = new Color(63, 63, 70);
 
     public MainTabPanel(MontoyaApi api, StorageManager storageManager) {
         this.api = api;
@@ -217,11 +218,15 @@ public class MainTabPanel extends JPanel {
         promptCategoryComboBox = new JComboBox<>();
         promptCategoryComboBox.setBackground(DARK_BG);
         promptCategoryComboBox.setForeground(DARK_TEXT);
+        promptCategoryComboBox.setPreferredSize(new Dimension(200, 26));
+        promptCategoryComboBox.setMaximumSize(new Dimension(220, 26));
         promptCategoryComboBox.addActionListener(e -> onPromptCategorySelected());
 
         vulnClassComboBox = new JComboBox<>();
         vulnClassComboBox.setBackground(DARK_BG);
         vulnClassComboBox.setForeground(DARK_TEXT);
+        vulnClassComboBox.setPreferredSize(new Dimension(200, 26));
+        vulnClassComboBox.setMaximumSize(new Dimension(220, 26));
         vulnClassComboBox.addActionListener(e -> onVulnClassSelected());
 
         JButton exportSessionBtn = new JButton("📥 Export");
@@ -240,17 +245,17 @@ public class MainTabPanel extends JPanel {
         JLabel vulnLabel = new JLabel("Vuln:"); vulnLabel.setForeground(DARK_TEXT);
 
         gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.0; controlBar.add(promptLabel, gbc);
-        gbc.gridx = 1; gbc.weightx = 0.4; controlBar.add(promptCategoryComboBox, gbc);
+        gbc.gridx = 1; gbc.weightx = 0.0; controlBar.add(promptCategoryComboBox, gbc);
 
         gbc.gridx = 2; gbc.weightx = 0.0; controlBar.add(vulnLabel, gbc);
-        gbc.gridx = 3; gbc.weightx = 0.4; controlBar.add(vulnClassComboBox, gbc);
+        gbc.gridx = 3; gbc.weightx = 0.0; controlBar.add(vulnClassComboBox, gbc);
 
         JPanel topActions = new JPanel(new FlowLayout(FlowLayout.RIGHT, 4, 0));
         topActions.setBackground(DARK_PANEL);
         topActions.add(exportSessionBtn);
         topActions.add(clearBtn);
 
-        gbc.gridx = 4; gbc.weightx = 0.2; controlBar.add(topActions, gbc);
+        gbc.gridx = 4; gbc.weightx = 1.0; controlBar.add(topActions, gbc);
 
         // Attached Traffic Card Banner
         attachedTrafficBanner = new JPanel(new BorderLayout(8, 8));
@@ -294,7 +299,7 @@ public class MainTabPanel extends JPanel {
         promptInputArea = new JTextArea(3, 40);
         promptInputArea.setLineWrap(true);
         promptInputArea.setWrapStyleWord(true);
-        promptInputArea.setBackground(DARK_PANEL);
+        promptInputArea.setBackground(DARK_INPUT);
         promptInputArea.setForeground(DARK_TEXT);
         promptInputArea.setCaretColor(DARK_TEXT);
         promptInputArea.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
