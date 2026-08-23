@@ -57,6 +57,7 @@ public class MainTabPanel extends JPanel {
 
     private static final Color DARK_BG = new Color(24, 24, 28);
     private static final Color DARK_PANEL = new Color(31, 31, 35);
+    private static final Color LIGHT_INPUT = new Color(74, 80, 100);
     private static final Color ORANGE_ACCENT = new Color(249, 115, 22);
     private static final Color DARK_TEXT = new Color(212, 212, 216);
     private static final Color DARK_BORDER = new Color(39, 39, 42);
@@ -306,9 +307,9 @@ public class MainTabPanel extends JPanel {
         promptInputArea = new JTextArea(3, 40);
         promptInputArea.setLineWrap(true);
         promptInputArea.setWrapStyleWord(true);
-        promptInputArea.setBackground(DARK_PANEL);
-        promptInputArea.setForeground(DARK_TEXT);
-        promptInputArea.setCaretColor(DARK_TEXT);
+        promptInputArea.setBackground(LIGHT_INPUT);
+        promptInputArea.setForeground(Color.WHITE);
+        promptInputArea.setCaretColor(Color.WHITE);
         promptInputArea.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
         JScrollPane promptScroll = new JScrollPane(promptInputArea);
