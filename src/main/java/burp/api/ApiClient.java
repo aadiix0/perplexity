@@ -38,6 +38,20 @@ public class ApiClient {
         void onComplete();
     }
 
+    public static boolean isProviderEnabled(String provider, ExtensionConfig config) {
+        if (config == null || provider == null) return false;
+        if (PROVIDER_NVIDIA.equalsIgnoreCase(provider)) return config.isEnableNvidia();
+        if (PROVIDER_OPENCODE.equalsIgnoreCase(provider)) return config.isEnableOpenCodeZen();
+        if (PROVIDER_AIHUBMIX.equalsIgnoreCase(provider)) return config.isEnableAiHubMix();
+        if (PROVIDER_OPENROUTER.equalsIgnoreCase(provider)) return config.isEnableOpenRouter();
+        if (PROVIDER_GOOGLE.equalsIgnoreCase(provider)) return config.isEnableGoogleAiStudio();
+        if (PROVIDER_CEREBRAS.equalsIgnoreCase(provider)) return config.isEnableCerebras();
+        if (PROVIDER_GROQ.equalsIgnoreCase(provider)) return config.isEnableGroq();
+        if (PROVIDER_CLOUDFLARE.equalsIgnoreCase(provider)) return config.isEnableCloudflare();
+        if (PROVIDER_CUSTOM.equalsIgnoreCase(provider)) return config.isEnableCustom();
+        return false;
+    }
+
     public static class ModelEntry {
         private final String provider;
         private final String rawModelId;
@@ -193,6 +207,15 @@ public class ApiClient {
             models.add(new ModelEntry(PROVIDER_GROQ, "deepseek-r1-distill-llama-70b"));
             models.add(new ModelEntry(PROVIDER_GROQ, "gemma2-9b-it"));
         }
+
+        if (config.isEnableCloudflare() && models.stream().noneMatch(m -> PROVIDER_CLOUDFLARE.equalsIgnoreCase(m.getProvider()))) {
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/meta/llama-3.3-70b-instruct-fp8-fast"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/meta/llama-3.1-8b-instruct"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/qwen/qwen1.5-14b-chat"));
+        }
+
+        models.removeIf(m -> !isProviderEnabled(m.getProvider(), config));
 
         return models;
     }

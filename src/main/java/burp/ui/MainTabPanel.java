@@ -541,6 +541,9 @@ public class MainTabPanel extends JPanel {
         ModelEntry toSelect = null;
 
         for (ModelEntry m : cachedFetchedModels) {
+            if (!ApiClient.isProviderEnabled(m.getProvider(), config)) {
+                continue;
+            }
             if (!favoritesOnly || config.getFavoriteModels().contains(m.getRawModelId())) {
                 modelComboBox.addItem(m);
                 if (m.getRawModelId().equals(config.getSelectedModel())) {
