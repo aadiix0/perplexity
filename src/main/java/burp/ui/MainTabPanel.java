@@ -57,10 +57,10 @@ public class MainTabPanel extends JPanel {
 
     private static final Color DARK_BG = new Color(24, 24, 28);
     private static final Color DARK_PANEL = new Color(31, 31, 35);
-    private static final Color DARK_INPUT = new Color(33, 33, 39);
     private static final Color ORANGE_ACCENT = new Color(249, 115, 22);
     private static final Color DARK_TEXT = new Color(212, 212, 216);
-    private static final Color DARK_BORDER = new Color(63, 63, 70);
+    private static final Color DARK_BORDER = new Color(39, 39, 42);
+    private static final Color BRIGHT_BORDER = new Color(82, 82, 91);
 
     public MainTabPanel(MontoyaApi api, StorageManager storageManager) {
         this.api = api;
@@ -96,7 +96,10 @@ public class MainTabPanel extends JPanel {
     private JPanel createSessionSidebar() {
         JPanel sidebar = new JPanel(new BorderLayout(8, 8));
         sidebar.setBackground(DARK_BG);
-        sidebar.setBorder(new EmptyBorder(8, 8, 8, 8));
+        sidebar.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 0, 0, 1, BRIGHT_BORDER),
+                new EmptyBorder(8, 8, 8, 8)
+        ));
 
         JPanel topBtnBar = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 0));
         topBtnBar.setBackground(DARK_BG);
@@ -280,6 +283,10 @@ public class MainTabPanel extends JPanel {
 
         JPanel headerContainer = new JPanel(new BorderLayout(4, 4));
         headerContainer.setBackground(DARK_BG);
+        headerContainer.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 0, 1, 0, BRIGHT_BORDER),
+                new EmptyBorder(0, 0, 4, 0)
+        ));
         headerContainer.add(controlBar, BorderLayout.NORTH);
         headerContainer.add(attachedTrafficBanner, BorderLayout.SOUTH);
 
@@ -299,7 +306,7 @@ public class MainTabPanel extends JPanel {
         promptInputArea = new JTextArea(3, 40);
         promptInputArea.setLineWrap(true);
         promptInputArea.setWrapStyleWord(true);
-        promptInputArea.setBackground(DARK_INPUT);
+        promptInputArea.setBackground(DARK_PANEL);
         promptInputArea.setForeground(DARK_TEXT);
         promptInputArea.setCaretColor(DARK_TEXT);
         promptInputArea.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
