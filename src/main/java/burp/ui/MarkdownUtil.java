@@ -14,6 +14,15 @@ public class MarkdownUtil {
         RENDERER = HtmlRenderer.builder(options).build();
     }
 
+    public static String escapeHtml(String text) {
+        if (text == null) return "";
+        return text.replace("&", "&amp;")
+                   .replace("<", "&lt;")
+                   .replace(">", "&gt;")
+                   .replace("\"", "&quot;")
+                   .replace("'", "&#39;");
+    }
+
     public static String toHtml(String markdown) {
         if (markdown == null || markdown.isEmpty()) {
             return "";
@@ -43,9 +52,9 @@ public class MarkdownUtil {
                 + ".user-bubble h3 { color: #a855f7; margin-bottom: 2px; }"
                 + ".ai-bubble { background-color: #2b2b2b; border: 1px solid #3c3c3c; border-radius: 8px; padding: 12px; margin-bottom: 14px; }"
                 + ".ai-bubble h3 { color: #a855f7; margin-bottom: 2px; }"
-                + ".badge-get { background-color: #1e3a8a; color: #60a5fa; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; }"
-                + ".badge-post { background-color: #065f46; color: #34d399; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; }"
-                + ".traffic-card { background-color: #09090b; border: 1px solid #27272a; border-radius: 6px; padding: 10px; margin: 8px 0; }"
+                + ".http-code-box { background-color: #09090b; border: 1px solid #3f3f46; border-radius: 6px; padding: 10px; margin: 8px 0; font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; font-size: 12px; color: #f4f4f5; white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; line-height: 1.4; }"
+                + ".req-first-line { color: #60a5fa; font-weight: bold; }"
+                + ".resp-first-line { color: #34d399; font-weight: bold; }"
                 + "</style></head><body>"
                 + bodyHtml
                 + "</body></html>";
