@@ -40,16 +40,17 @@ public class ApiClient {
 
     public static boolean isProviderEnabled(String provider, ExtensionConfig config) {
         if (config == null || provider == null) return false;
-        if (PROVIDER_NVIDIA.equalsIgnoreCase(provider)) return config.isEnableNvidia();
-        if (PROVIDER_OPENCODE.equalsIgnoreCase(provider)) return config.isEnableOpenCodeZen();
-        if (PROVIDER_AIHUBMIX.equalsIgnoreCase(provider)) return config.isEnableAiHubMix();
-        if (PROVIDER_OPENROUTER.equalsIgnoreCase(provider)) return config.isEnableOpenRouter();
-        if (PROVIDER_GOOGLE.equalsIgnoreCase(provider)) return config.isEnableGoogleAiStudio();
-        if (PROVIDER_CEREBRAS.equalsIgnoreCase(provider)) return config.isEnableCerebras();
-        if (PROVIDER_GROQ.equalsIgnoreCase(provider)) return config.isEnableGroq();
-        if (PROVIDER_CLOUDFLARE.equalsIgnoreCase(provider)) return config.isEnableCloudflare();
-        if (PROVIDER_CUSTOM.equalsIgnoreCase(provider)) return config.isEnableCustom();
-        return false;
+        String p = provider.trim().toLowerCase();
+        if (p.contains("nvidia")) return config.isEnableNvidia();
+        if (p.contains("opencode") || p.contains("zen")) return config.isEnableOpenCodeZen();
+        if (p.contains("aihubmix")) return config.isEnableAiHubMix();
+        if (p.contains("openrouter")) return config.isEnableOpenRouter();
+        if (p.contains("google") || p.contains("gemini")) return config.isEnableGoogleAiStudio();
+        if (p.contains("cerebras")) return config.isEnableCerebras();
+        if (p.contains("groq")) return config.isEnableGroq();
+        if (p.contains("cloudflare")) return config.isEnableCloudflare();
+        if (p.contains("custom")) return config.isEnableCustom();
+        return true;
     }
 
     public static class ModelEntry {

@@ -288,8 +288,7 @@ public class MainTabPanel extends JPanel {
                 BorderFactory.createMatteBorder(0, 0, 1, 0, BRIGHT_BORDER),
                 new EmptyBorder(0, 0, 4, 0)
         ));
-        headerContainer.add(controlBar, BorderLayout.NORTH);
-        headerContainer.add(attachedTrafficBanner, BorderLayout.SOUTH);
+        headerContainer.add(controlBar, BorderLayout.CENTER);
 
         // Center Chat Display
         chatDisplayPane = new JEditorPane();

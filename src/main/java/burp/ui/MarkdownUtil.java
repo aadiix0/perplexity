@@ -35,7 +35,7 @@ public class MarkdownUtil {
                 + "h1, h2, h3, h4 { color: #f4f4f5; font-weight: 600; margin-top: 14px; margin-bottom: 6px; border-bottom: 1px solid #27272a; padding-bottom: 4px; }"
                 + "h3 { color: #a855f7; border-bottom: none; font-size: 14px; font-weight: bold; }"
                 + "p { margin-top: 0; margin-bottom: 10px; color: #e4e4e7; }"
-                + "code { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; background-color: transparent; color: #f97316; padding: 0; font-size: 12px; }"
+                + "code { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; background-color: transparent; color: #38bdf8; padding: 0; font-size: 12px; }"
                 + "pre { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; background-color: #09090b; color: #f4f4f5; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 12px; border: 1px solid #27272a; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }"
                 + "pre code { background-color: transparent; padding: 0; color: #f4f4f5; }"
                 + "blockquote { border-left: 3px solid #a855f7; margin: 0 0 12px 0; padding-left: 12px; color: #a1a1aa; background-color: transparent; padding-top: 6px; padding-bottom: 6px; border-radius: 0 6px 6px 0; }"
