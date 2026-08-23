@@ -19,6 +19,9 @@ public class ChatMessage {
     private String httpRequest;
     private String httpResponse;
 
+    // AI Model details
+    private String modelName;
+
     public ChatMessage() {
     }
 
@@ -91,5 +94,13 @@ public class ChatMessage {
 
     public void setHttpResponse(String httpResponse) {
         this.httpResponse = httpResponse;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
     }
 }

@@ -698,6 +698,9 @@ public class MainTabPanel extends JPanel {
         activeSession.addMessage(userMsg);
 
         ChatMessage assistantMsg = new ChatMessage(UUID.randomUUID().toString(), ChatMessage.Role.ASSISTANT, "Thinking...", System.currentTimeMillis());
+        if (selectedModel != null) {
+            assistantMsg.setModelName(selectedModel.getDisplayName());
+        }
         activeSession.addMessage(assistantMsg);
 
         storageManager.saveSession(activeSession);
@@ -746,11 +749,21 @@ public class MainTabPanel extends JPanel {
         StringBuilder sb = new StringBuilder();
         sb.append("# ").append(activeSession.getTitle()).append("\n\n");
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
         for (ChatMessage msg : activeSession.getMessages()) {
+            String timeStr = dateFormat.format(new Date(msg.getTimestamp()));
+
             if (msg.getRole() == ChatMessage.Role.USER) {
                 sb.append("<div class='user-bubble'><h3>👤 You</h3>");
+                sb.append("<div class='msg-meta'>").append(timeStr).append("</div>");
             } else if (msg.getRole() == ChatMessage.Role.ASSISTANT) {
                 sb.append("<div class='ai-bubble'><h3>🤖 AI Assistant</h3>");
+                sb.append("<div class='msg-meta'>").append(timeStr);
+                if (msg.getModelName() != null && !msg.getModelName().isEmpty()) {
+                    sb.append(" • Model: ").append(msg.getModelName());
+                }
+                sb.append("</div>");
             }
 
             if (msg.getContent() != null && !msg.getContent().isEmpty()) {
