@@ -772,25 +772,17 @@ public class MainTabPanel extends JPanel {
 
             if (msg.getHttpRequest() != null && !msg.getHttpRequest().isEmpty()) {
                 String rawReq = msg.getHttpRequest().trim();
-                int firstLineEnd = rawReq.indexOf('\n');
-                String firstLine = firstLineEnd != -1 ? rawReq.substring(0, firstLineEnd).trim() : rawReq;
-                String rest = firstLineEnd != -1 ? rawReq.substring(firstLineEnd + 1) : "";
 
                 sb.append("<pre class='http-code-box'>")
-                        .append("<span class='req-first-line'>").append(MarkdownUtil.escapeHtml(firstLine)).append("</span>\n")
-                        .append(MarkdownUtil.escapeHtml(rest))
+                        .append(MarkdownUtil.escapeHtml(rawReq))
                         .append("</pre>\n\n");
             }
 
             if (msg.getHttpResponse() != null && !msg.getHttpResponse().isEmpty()) {
                 String rawResp = msg.getHttpResponse().trim();
-                int firstLineEnd = rawResp.indexOf('\n');
-                String firstLine = firstLineEnd != -1 ? rawResp.substring(0, firstLineEnd).trim() : rawResp;
-                String rest = firstLineEnd != -1 ? rawResp.substring(firstLineEnd + 1) : "";
 
                 sb.append("<pre class='http-code-box'>")
-                        .append("<span class='resp-first-line'>").append(MarkdownUtil.escapeHtml(firstLine)).append("</span>\n")
-                        .append(MarkdownUtil.escapeHtml(rest))
+                        .append(MarkdownUtil.escapeHtml(rawResp))
                         .append("</pre>\n\n");
             }
 
