@@ -37,7 +37,7 @@ public class MarkdownUtil {
                 + "p { margin-top: 0; margin-bottom: 10px; color: #e4e4e7; }"
                 + "code { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; background-color: #27272a; color: #f97316; padding: 2px 6px; border-radius: 4px; font-size: 12px; }"
                 + "pre { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; background-color: #09090b; color: #f4f4f5; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 12px; border: 1px solid #27272a; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }"
-                + "pre code { background-color: transparent; padding: 0; color: #38bdf8; }"
+                + "pre code { background-color: transparent; padding: 0; color: #f4f4f5; }"
                 + "blockquote { border-left: 3px solid #a855f7; margin: 0 0 12px 0; padding-left: 12px; color: #a1a1aa; background-color: #1f1f23; padding-top: 6px; padding-bottom: 6px; border-radius: 0 6px 6px 0; }"
                 + "ul, ol { margin-top: 0; margin-bottom: 10px; padding-left: 20px; color: #e4e4e7; }"
                 + "li { margin-bottom: 6px; color: #e4e4e7; }"

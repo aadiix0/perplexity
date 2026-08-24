@@ -533,6 +533,19 @@ public class MainTabPanel extends JPanel {
         worker.execute();
     }
 
+    private boolean isProviderEnabled(ExtensionConfig config, String provider) {
+        if (ApiClient.PROVIDER_NVIDIA.equalsIgnoreCase(provider)) return config.isEnableNvidia();
+        if (ApiClient.PROVIDER_OPENCODE.equalsIgnoreCase(provider)) return config.isEnableOpenCodeZen();
+        if (ApiClient.PROVIDER_AIHUBMIX.equalsIgnoreCase(provider)) return config.isEnableAiHubMix();
+        if (ApiClient.PROVIDER_OPENROUTER.equalsIgnoreCase(provider)) return config.isEnableOpenRouter();
+        if (ApiClient.PROVIDER_GOOGLE.equalsIgnoreCase(provider)) return config.isEnableGoogleAiStudio();
+        if (ApiClient.PROVIDER_CEREBRAS.equalsIgnoreCase(provider)) return config.isEnableCerebras();
+        if (ApiClient.PROVIDER_GROQ.equalsIgnoreCase(provider)) return config.isEnableGroq();
+        if (ApiClient.PROVIDER_CLOUDFLARE.equalsIgnoreCase(provider)) return config.isEnableCloudflare();
+        if (ApiClient.PROVIDER_CUSTOM.equalsIgnoreCase(provider)) return config.isEnableCustom();
+        return true;
+    }
+
     private void renderModelComboBox() {
         ExtensionConfig config = storageManager.getConfig();
         boolean favoritesOnly = favoriteFilterBtn.isSelected();
@@ -541,10 +554,12 @@ public class MainTabPanel extends JPanel {
         ModelEntry toSelect = null;
 
         for (ModelEntry m : cachedFetchedModels) {
-            if (!favoritesOnly || config.getFavoriteModels().contains(m.getRawModelId())) {
-                modelComboBox.addItem(m);
-                if (m.getRawModelId().equals(config.getSelectedModel())) {
-                    toSelect = m;
+            if (isProviderEnabled(config, m.getProvider())) {
+                if (!favoritesOnly || config.getFavoriteModels().contains(m.getRawModelId())) {
+                    modelComboBox.addItem(m);
+                    if (m.getRawModelId().equals(config.getSelectedModel())) {
+                        toSelect = m;
+                    }
                 }
             }
         }
@@ -773,17 +788,17 @@ public class MainTabPanel extends JPanel {
             if (msg.getHttpRequest() != null && !msg.getHttpRequest().isEmpty()) {
                 String rawReq = msg.getHttpRequest().trim();
 
-                sb.append("<pre class='http-code-box'>")
-                        .append(MarkdownUtil.escapeHtml(rawReq))
-                        .append("</pre>\n\n");
+                sb.append("```\n")
+                        .append(rawReq)
+                        .append("\n```\n\n");
             }
 
             if (msg.getHttpResponse() != null && !msg.getHttpResponse().isEmpty()) {
                 String rawResp = msg.getHttpResponse().trim();
 
-                sb.append("<pre class='http-code-box'>")
-                        .append(MarkdownUtil.escapeHtml(rawResp))
-                        .append("</pre>\n\n");
+                sb.append("```\n")
+                        .append(rawResp)
+                        .append("\n```\n\n");
             }
 
             sb.append("</div><hr/>");
