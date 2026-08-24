@@ -500,7 +500,7 @@ public class MainTabPanel extends JPanel {
         attachedTrafficBanner.setVisible(false);
     }
 
-    private void refreshModelsAndConfig() {
+    public void refreshModelsAndConfig() {
         ExtensionConfig config = storageManager.getConfig();
 
         promptCategoryComboBox.removeAllItems();
@@ -514,6 +514,8 @@ public class MainTabPanel extends JPanel {
         for (String vulnName : config.getVulnerabilityClasses().keySet()) {
             vulnClassComboBox.addItem(vulnName);
         }
+
+        renderModelComboBox();
 
         SwingWorker<List<ModelEntry>, Void> worker = new SwingWorker<>() {
             @Override

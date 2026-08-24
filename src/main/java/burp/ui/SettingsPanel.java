@@ -103,6 +103,17 @@ public class SettingsPanel extends JPanel {
         customUrlField = new JTextField(25);
         customKeyField = new JTextField(25);
 
+        JCheckBox[] allCheckBoxes = new JCheckBox[] {
+                enableNvidiaCheckBox, enableOpenCodeZenCheckBox, openCodeZenFreeOnlyCheckBox,
+                enableAiHubMixCheckBox, enableOpenRouterCheckBox, enableGoogleCheckBox,
+                googleFreeOnlyCheckBox, enableCerebrasCheckBox, enableGroqCheckBox,
+                groqFreeOnlyCheckBox, enableCloudflareCheckBox, enableCustomCheckBox
+        };
+
+        for (JCheckBox cb : allCheckBoxes) {
+            cb.addActionListener(e -> saveSettingsSilently());
+        }
+
         // Populate Left Column
         GridBagConstraints gbcLeft = createGbc();
         int leftRow = 0;
@@ -277,7 +288,7 @@ public class SettingsPanel extends JPanel {
         systemPromptArea.setText(config.getSystemPrompt());
     }
 
-    private void saveSettings() {
+    private void saveSettingsSilently() {
         ExtensionConfig config = storageManager.getConfig();
 
         config.setEnableNvidia(enableNvidiaCheckBox.isSelected());
@@ -315,10 +326,14 @@ public class SettingsPanel extends JPanel {
         config.setSystemPrompt(systemPromptArea.getText().trim());
 
         storageManager.saveConfig(config);
-        JOptionPane.showMessageDialog(this, "Settings saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
         if (onConfigUpdated != null) {
             onConfigUpdated.run();
         }
+    }
+
+    private void saveSettings() {
+        saveSettingsSilently();
+        JOptionPane.showMessageDialog(this, "Settings saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 }
