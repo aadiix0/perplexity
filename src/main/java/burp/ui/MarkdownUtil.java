@@ -32,8 +32,8 @@ public class MarkdownUtil {
         // Modern, high-contrast dark theme matching AIAssistantProRedesigned
         return "<html><head><style>"
                 + "body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; padding: 12px; margin: 0; background-color: #18181c; color: #d4d4d8; }"
-                + "h1, h2 { color: #f87171; font-weight: 600; margin-top: 14px; margin-bottom: 6px; border-bottom: none; padding-bottom: 4px; font-size: 14px; }"
-                + "h3, h4 { color: #f97316; font-weight: 600; margin-top: 12px; margin-bottom: 6px; border-bottom: none; padding-bottom: 2px; font-size: 13px; }"
+                + "h1, h2, h3 { color: #f87171; font-weight: 600; margin-top: 14px; margin-bottom: 6px; border-bottom: none; padding-bottom: 4px; font-size: 14px; }"
+                + "h4, h5, h6 { color: #f97316; font-weight: 600; margin-top: 12px; margin-bottom: 6px; border-bottom: none; padding-bottom: 2px; font-size: 13px; }"
                 + "p { margin-top: 0; margin-bottom: 10px; color: #e4e4e7; }"
                 + "code { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; background-color: #27272a; color: #34d399; padding: 2px 6px; border-radius: 4px; font-size: 12px; }"
                 + "pre { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; background-color: #09090b; color: #f4f4f5; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 12px; border: 1px solid #27272a; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }"
