@@ -772,10 +772,10 @@ public class MainTabPanel extends JPanel {
             String timeStr = dateFormat.format(new Date(msg.getTimestamp()));
 
             if (msg.getRole() == ChatMessage.Role.USER) {
-                sb.append("<div class='user-bubble'><h3>👤 You</h3>");
+                sb.append("<div class='user-bubble'><h3 class='bubble-title'>👤 You</h3>");
                 sb.append("<div class='msg-meta'>").append(timeStr).append("</div>");
             } else if (msg.getRole() == ChatMessage.Role.ASSISTANT) {
-                sb.append("<div class='ai-bubble'><h3>🤖 AI Assistant</h3>");
+                sb.append("<div class='ai-bubble'><h3 class='bubble-title'>🤖 AI Assistant</h3>");
                 sb.append("<div class='msg-meta'>").append(timeStr);
                 if (msg.getModelName() != null && !msg.getModelName().isEmpty()) {
                     sb.append(" • Model: ").append(msg.getModelName());
