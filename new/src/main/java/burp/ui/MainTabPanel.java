@@ -31,6 +31,7 @@ public class MainTabPanel extends JPanel {
     private JList<ChatSession> sessionList;
     private JTextField searchSessionsField;
 
+    private JTextField searchModelsField;
     private JComboBox<ModelEntry> modelComboBox;
     private JButton toggleFavoriteBtn;
     private JToggleButton favoriteFilterBtn;
@@ -352,6 +353,22 @@ public class MainTabPanel extends JPanel {
                 new EmptyBorder(4, 10, 4, 10)
         ));
 
+        searchModelsField = new JTextField();
+        searchModelsField.setBackground(DARK_BG);
+        searchModelsField.setForeground(DARK_TEXT);
+        searchModelsField.setCaretColor(DARK_TEXT);
+        searchModelsField.setPreferredSize(new Dimension(140, 24));
+        searchModelsField.setToolTipText("🔍 Search models...");
+        searchModelsField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(DARK_BORDER),
+                BorderFactory.createEmptyBorder(2, 6, 2, 6)
+        ));
+        searchModelsField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override public void insertUpdate(DocumentEvent e) { renderModelComboBox(); }
+            @Override public void removeUpdate(DocumentEvent e) { renderModelComboBox(); }
+            @Override public void changedUpdate(DocumentEvent e) { renderModelComboBox(); }
+        });
+
         modelComboBox = new JComboBox<>();
         modelComboBox.setBackground(DARK_BG);
         modelComboBox.setForeground(DARK_TEXT);
@@ -377,6 +394,7 @@ public class MainTabPanel extends JPanel {
         JPanel modelControls = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
         modelControls.setBackground(DARK_PANEL);
         modelControls.add(lightningLabel);
+        modelControls.add(searchModelsField);
         modelControls.add(modelComboBox);
         modelControls.add(toggleFavoriteBtn);
         modelControls.add(favoriteFilterBtn);
@@ -550,7 +568,8 @@ public class MainTabPanel extends JPanel {
 
     private void renderModelComboBox() {
         ExtensionConfig config = storageManager.getConfig();
-        boolean favoritesOnly = favoriteFilterBtn.isSelected();
+        boolean favoritesOnly = favoriteFilterBtn != null && favoriteFilterBtn.isSelected();
+        String searchQuery = searchModelsField != null ? searchModelsField.getText().trim().toLowerCase() : "";
 
         modelComboBox.removeAllItems();
         ModelEntry toSelect = null;
@@ -558,9 +577,15 @@ public class MainTabPanel extends JPanel {
         for (ModelEntry m : cachedFetchedModels) {
             if (isProviderEnabled(config, m.getProvider())) {
                 if (!favoritesOnly || config.getFavoriteModels().contains(m.getRawModelId())) {
-                    modelComboBox.addItem(m);
-                    if (m.getRawModelId().equals(config.getSelectedModel())) {
-                        toSelect = m;
+                    if (searchQuery.isEmpty() ||
+                        m.getDisplayName().toLowerCase().contains(searchQuery) ||
+                        m.getRawModelId().toLowerCase().contains(searchQuery) ||
+                        m.getProvider().toLowerCase().contains(searchQuery)) {
+
+                        modelComboBox.addItem(m);
+                        if (m.getRawModelId().equals(config.getSelectedModel())) {
+                            toSelect = m;
+                        }
                     }
                 }
             }

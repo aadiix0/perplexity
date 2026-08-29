@@ -124,10 +124,10 @@ public class ApiClient {
         }
 
         if (config.isEnableCloudflare() && config.getCloudflareApiKey() != null && !config.getCloudflareApiKey().trim().isEmpty()) {
-            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/meta/llama-3.3-70b-instruct-fp8-fast"));
-            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"));
-            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/meta/llama-3.1-8b-instruct"));
-            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/qwen/qwen1.5-14b-chat"));
+            List<String> cfList = fetchCloudflareModels(config.getCloudflareAccountId(), config.getCloudflareApiKey());
+            for (String m : cfList) {
+                models.add(new ModelEntry(PROVIDER_CLOUDFLARE, m));
+            }
         }
 
         if (config.isEnableCustom() && config.getCustomApiUrl() != null && !config.getCustomApiUrl().trim().isEmpty()) {
@@ -194,12 +194,57 @@ public class ApiClient {
             models.add(new ModelEntry(PROVIDER_GROQ, "gemma2-9b-it"));
         }
 
+        if (config.isEnableCloudflare() && models.stream().noneMatch(m -> PROVIDER_CLOUDFLARE.equalsIgnoreCase(m.getProvider()))) {
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/meta/llama-3.3-70b-instruct-fp8-fast"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/qwen/qwen2.5-72b-instruct"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/qwen/qwen3-8b-instruct"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/qwen/qwen1.5-14b-chat"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/qwen/qwen1.5-7b-chat"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/qwen/qwen1.5-0.5b-chat"));
+            models.add(new ModelEntry(PROVIDER_CLOUDFLARE, "@cf/meta/llama-3.1-8b-instruct"));
+        }
+
         return models;
     }
 
     private boolean isGroqFreeModel(String modelId) {
         String lower = modelId.toLowerCase();
         return lower.contains("versatile") || lower.contains("llama-3") || lower.contains("gemma") || lower.contains("deepseek-r1");
+    }
+
+    private List<String> fetchCloudflareModels(String accountId, String apiKey) {
+        List<String> list = new ArrayList<>();
+        if (accountId == null || accountId.trim().isEmpty()) {
+            return list;
+        }
+        try {
+            String endpointUrl = "https://api.cloudflare.com/client/v4/accounts/" + accountId.trim() + "/ai/models/search";
+            URL url = new URL(endpointUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Authorization", "Bearer " + apiKey.trim());
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+
+            if (conn.getResponseCode() == 200) {
+                try (InputStream is = conn.getInputStream()) {
+                    JsonNode root = objectMapper.readTree(is);
+                    if (root.has("result") && root.get("result").isArray()) {
+                        for (JsonNode node : root.get("result")) {
+                            if (node.has("name")) {
+                                list.add(node.get("name").asText());
+                            } else if (node.has("id")) {
+                                list.add(node.get("id").asText());
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return list;
     }
 
     private List<String> fetchModelsFromEndpoint(String endpointUrl, String apiKey) {
